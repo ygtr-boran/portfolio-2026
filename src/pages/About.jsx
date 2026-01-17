@@ -1,29 +1,12 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function About() {
   const navigate = useNavigate()
 
-  // 1. DAS SKRIPT LADEN (Technischer Maschinenraum)
-  useEffect(() => {
-    const scriptId = 'linkedin-script';
-    const existingScript = document.getElementById(scriptId);
+  // HINWEIS: Das langsame useEffect-Skript wurde komplett entfernt.
+  // Wir nutzen jetzt reinen Code für maximale Geschwindigkeit.
 
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = "https://platform.linkedin.com/badges/js/profile.js";
-      script.async = true;
-      script.defer = true;
-      script.type = "text/javascript";
-      document.body.appendChild(script);
-    } else {
-      // Wenn das Skript schon da ist, Badge neu rendern (für Navigation)
-      if (window.LIRenderAll) window.LIRenderAll();
-    }
-  }, [])
-
-  // 2. DAS GRID PATTERN (Der Bauplan-Look)
+  // DAS GRID PATTERN (Der Bauplan-Look)
   const gridStyle = {
     backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)`,
     backgroundSize: '30px 30px'
@@ -60,9 +43,8 @@ export default function About() {
                 {/* LINKE SPALTE: DEINE STORY (7 Spalten breit) */}
                 <div className="lg:col-span-7 space-y-12">
                     
-                    {/* Der Haupttext - Edel verpackt */}
+                    {/* Der Haupttext */}
                     <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 relative overflow-hidden group hover:border-blue-500/30 transition-colors duration-500">
-                        {/* Deko-Elemente */}
                         <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
                         <div className="absolute top-0 left-0 w-1 h-full bg-blue-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
 
@@ -92,54 +74,63 @@ export default function About() {
                     </div>
                 </div>
 
-                {/* RECHTE SPALTE: DIGITAL ID (LINKEDIN) (5 Spalten breit) */}
+                {/* RECHTE SPALTE: CUSTOM DIGITAL ID (Schnell & Stabil) */}
                 <div className="lg:col-span-5 relative">
-                     {/* Sticky Container, damit es beim Scrollen kurz stehen bleibt (optional, wirkt gut) */}
-                     <div className="sticky top-10">
+                    <div className="sticky top-10">
+                    
+                    {/* ID CARD CONTAINER */}
+                    <div className="relative p-[1px] bg-gradient-to-b from-blue-500/50 to-transparent group hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-500">
                         
-                        {/* ID CARD CONTAINER */}
-                        <div className="relative p-[1px] bg-gradient-to-b from-white/20 to-transparent">
-                            <div className="bg-black/80 backdrop-blur-md p-6 relative">
-                                
-                                {/* Header der Card */}
-                                <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-                                    <span className="text-[10px] font-mono text-blue-400 tracking-widest">LIVE CONNECTION</span>
-                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                </div>
-
-                                {/* --- DER BADGE --- */}
-                                {/* Wir zentrieren ihn im Container */}
-                                <div className="flex justify-center scale-95 origin-top">
-                                    <div 
-                                        className="badge-base LI-profile-badge" 
-                                        data-locale="de_DE" 
-                                        data-size="large" 
-                                        data-theme="dark" 
-                                        data-type="VERTICAL" 
-                                        data-vanity="boranyigiter" 
-                                        data-version="v1"
-                                    >
-                                        <a 
-                                            className="badge-base__link LI-simple-link" 
-                                            href="https://at.linkedin.com/in/boranyigiter?trk=profile-badge"
-                                        >
-                                            Boran Yigiter
-                                        </a>
-                                    </div>
-                                </div>
-                                {/* ---------------- */}
-
-                                {/* Tech Footer der Card */}
-                                <div className="mt-6 pt-4 border-t border-white/10 flex justify-between text-[10px] font-mono text-gray-500">
-                                    <span>LOC: AUSTRIA</span>
-                                    <span>ID: B_YIGITER</span>
+                        {/* Die Karte selbst */}
+                        <div className="bg-black/90 backdrop-blur-xl p-8 relative overflow-hidden">
+                            
+                            {/* Header: Status Light */}
+                            <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+                                <span className="text-[10px] font-mono text-blue-400 tracking-widest">ENCRYPTED CONNECTION</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] text-green-500 font-mono animate-pulse">ONLINE</span>
+                                    <div className="w-2 h-2 bg-green-500 rounded-full shadow-[0_0_10px_#22c55e]"></div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Hintergrund Glühen für den Badge */}
-                        <div className="absolute inset-0 bg-blue-500/5 blur-3xl -z-10"></div>
-                     </div>
+                            {/* Content: Profilbild & Name */}
+                            <div className="flex items-center gap-6 mb-8">
+                                {/* Avatar-Ersatz (Initiale) */}
+                                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-900 to-black border border-blue-500/30 flex items-center justify-center relative flex-shrink-0">
+                                    <span className="text-xl md:text-2xl font-bold text-white">BY</span>
+                                    {/* Ecken-Marker */}
+                                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/50"></div>
+                                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/50"></div>
+                                </div>
+
+                                <div>
+                                    <h2 className="text-xl md:text-2xl font-bold text-white leading-none mb-1">BORAN YIGITER</h2>
+                                    <p className="text-[10px] md:text-xs text-gray-400 font-mono tracking-widest mb-2">ARCHITECT // MAKER</p>
+                                    <p className="text-[10px] md:text-xs text-blue-400">University of Liechtenstein</p>
+                                </div>
+                            </div>
+
+                            {/* ACTION BUTTON - Führt direkt zu deinem Profil */}
+                            <a 
+                                href="https://at.linkedin.com/in/boranyigiter" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="block w-full text-center py-4 bg-white/5 border border-white/10 text-white text-xs tracking-[0.3em] uppercase hover:bg-blue-600 hover:border-blue-500 hover:text-white transition-all duration-300 group-hover:bg-white/10"
+                            >
+                                Connect on LinkedIn
+                            </a>
+
+                            {/* Tech Deko unten */}
+                            <div className="mt-6 flex justify-between text-[9px] font-mono text-gray-600">
+                                <span>SECURE ID: 8X-2026</span>
+                                <span>DATA: PUBLIC</span>
+                            </div>
+
+                            {/* Blauer Glow Effekt im Hintergrund */}
+                            <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-600/20 blur-3xl rounded-full pointer-events-none group-hover:bg-blue-600/30 transition-colors"></div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
 
             </div>
