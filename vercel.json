@@ -1,5 +1,4 @@
 {
-  "//": "Elite Config for Boran",
   "rewrites": [
     { "source": "/((?!assets/|.*\\..*).*)", "destination": "/index.html" }
   ],
