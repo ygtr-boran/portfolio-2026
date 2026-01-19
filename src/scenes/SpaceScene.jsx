@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { Stars, useTexture, shaderMaterial, Text, Html } from '@react-three/drei'
-import { useRef, useMemo, useEffect } from 'react'
+import { useRef, useMemo, useEffect, useState } from 'react'
 import * as THREE from 'three'
 import { extend } from '@react-three/fiber'
 
@@ -16,23 +16,114 @@ const AtmosphereMaterial = shaderMaterial(
 )
 extend({ AtmosphereMaterial })
 
-// --- 2. STÄDTE ---
+// --- 2. DATA ---
 const cities = [
   { name: "BERLIN", lat: 52.5200, lon: 13.4050 },
   { name: "LONDON", lat: 51.5074, lon: -0.1278 },
   { name: "NEW YORK", lat: 40.7128, lon: -74.0060 },
-  { name: "SAN FRANCISCO", lat: 37.7749, lon: -122.4194 },
-  { name: "SÃO PAULO", lat: -23.5505, lon: -46.6333 },
-  { name: "KAIRO", lat: 30.0444, lon: 31.2357 },
-  { name: "DUBAI", lat: 25.2048, lon: 55.2708 },
-  { name: "MUMBAI", lat: 19.0760, lon: 72.8777 },
-  { name: "SINGAPORE", lat: 1.3521, lon: 103.8198 },
-  { name: "SHANGHAI", lat: 31.2304, lon: 121.4737 },
   { name: "TOKYO", lat: 35.6762, lon: 139.6503 },
   { name: "SYDNEY", lat: -33.8688, lon: 151.2093 }
 ]
 
-// --- 3. MARKER ---
+const quotes = [
+  { text: "God is in the details.", author: "Mies van der Rohe" },
+  { text: "Form follows function.", author: "Louis Sullivan" },
+  { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
+  { text: "Architecture should speak of its time and place, but yearn for timelessness.", author: "Frank Gehry" },
+  { text: "Less is more.", author: "Mies van der Rohe" }
+];
+
+// --- 3. HUD OVERLAY (FIXED & STYLED) ---
+function HudOverlay({ startTransition }) {
+    const [quoteIndex, setQuoteIndex] = useState(0);
+    const [fade, setFade] = useState(true);
+
+    // Zitate Rotation
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setFade(false); 
+            setTimeout(() => {
+                setQuoteIndex((prev) => (prev + 1) % quotes.length);
+                setFade(true); 
+            }, 1000); 
+        }, 8000); 
+        return () => clearInterval(interval);
+    }, []);
+
+    const containerClass = startTransition ? "opacity-0 pointer-events-none" : "opacity-100";
+
+    // WICHTIG: zIndex auf 100, pointerEvents auf Container AUS (none)
+    return (
+        <Html fullscreen style={{ pointerEvents: 'none', zIndex: 100 }}>
+            <div className={`absolute inset-0 transition-opacity duration-1000 ${containerClass} font-mono text-white pointer-events-none`}>
+                
+                {/* OBEN LINKS: Branding */}
+                <div className="absolute top-8 left-8 md:top-12 md:left-12 pointer-events-auto">
+                    <h1 className="text-xl md:text-3xl font-bold tracking-tighter leading-none drop-shadow-lg select-none">
+                        BORAN YIGITER
+                    </h1>
+                </div>
+
+                {/* UNTEN LINKS: Zitate (Desktop Only) */}
+                <div className="absolute bottom-12 left-12 max-w-[300px] hidden md:block pointer-events-auto">
+                    <div className={`transition-opacity duration-1000 ${fade ? 'opacity-100' : 'opacity-0'}`}>
+                        <p className="text-lg font-light leading-relaxed drop-shadow-md select-none">"{quotes[quoteIndex].text}"</p>
+                        <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest select-none">// {quotes[quoteIndex].author}</p>
+                    </div>
+                </div>
+
+                {/* UNTEN RECHTS: Social Icons (CLICK FIX & NO GRAY) */}
+                {/* pointer-events-auto auf den Wrapper der Buttons */}
+                <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 flex items-center gap-4 pointer-events-auto z-50">
+                    
+                    {/* EMAIL BUTTON */}
+                    <a 
+                        href="mailto:yigiterboran@icloud.com" 
+                        // HIER GEÄNDERT: bg-transparent statt bg-white/5 für den cleanen Look
+                        className="group relative p-3 bg-transparent border border-white rounded-full hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 cursor-pointer z-50 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                        title="Send Email"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                        </svg>
+                    </a>
+
+                    {/* PHONE BUTTON */}
+                    <a 
+                        href="tel:+436765589349" 
+                        // HIER GEÄNDERT: bg-transparent
+                        className="group relative p-3 bg-transparent border border-white rounded-full hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 cursor-pointer z-50 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                        title="Call Now"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                        </svg>
+                    </a>
+
+                    {/* INSTAGRAM BUTTON (RICHTIGES ICON) */}
+                    <a 
+                        href="https://instagram.com/ygtr.boran" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        // HIER GEÄNDERT: bg-transparent
+                        className="group relative p-3 bg-transparent border border-white rounded-full hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 cursor-pointer z-50 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                        title="Instagram"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+
+                </div>
+
+            </div>
+        </Html>
+    )
+}
+
+// --- 4. MARKER ---
 function CityMarker({ lat, lon, name, radius, isMobile, systemState }) {
   const markerRef = useRef()
   const lightRef = useRef()
@@ -90,7 +181,7 @@ function CityMarker({ lat, lon, name, radius, isMobile, systemState }) {
   )
 }
 
-// --- 4. KAMERA ---
+// --- 5. KAMERA ---
 function CameraController({ startTransition, isMobile }) {
   const { camera } = useThree()
   useFrame(() => {
@@ -107,46 +198,6 @@ function CameraController({ startTransition, isMobile }) {
   return null
 }
 
-// --- 5. NEBEL-CONTROLLER (DER VORHANG) ---
-function FogCurtain({ moonRef }) {
-    const { scene, camera } = useThree();
-    // Vektoren recyclen
-    const moonPos = useMemo(() => new THREE.Vector3(), [])
-    const camPos = useMemo(() => new THREE.Vector3(), [])
-
-    useFrame(() => {
-        if (!moonRef.current) return;
-
-        // Distanz messen
-        moonRef.current.getWorldPosition(moonPos);
-        camera.getWorldPosition(camPos);
-        const distance = camPos.distanceTo(moonPos);
-
-        // LOGIK: 
-        // Wenn Distanz < 7: Vorhang zieht zu (Nebel wird dicht)
-        // Wenn Distanz > 7: Vorhang ist offen (Nebel ist weg)
-        
-        let targetDensity = 0; // Standard: Kein Nebel
-
-        if (distance < 7.0) {
-            // Je näher, desto dichter der Nebel. 
-            // Bei Distanz 3 ist er extrem dicht (0.2), bei 7 ist er weg (0).
-            const proximity = 1 - ((distance - 3.0) / 4.0); // Normalize 0 to 1
-            // Clamp value between 0 and 1
-            const factor = Math.max(0, Math.min(1, proximity));
-            targetDensity = factor * 0.15; // Max Dichte
-        }
-
-        // Weicher Übergang (Lerp)
-        if (scene.fog) {
-            scene.fog.density = THREE.MathUtils.lerp(scene.fog.density, targetDensity, 0.05);
-        }
-    });
-
-    return <fogExp2 attach="fog" args={['#000000', 0]} />; // Startet unsichtbar
-}
-
-
 // --- 6. HAUPTSZENE ---
 export default function SpaceScene({ startTransition, lightColor }) {
   const earthRef = useRef()
@@ -155,6 +206,7 @@ export default function SpaceScene({ startTransition, lightColor }) {
   const moonMeshRef = useRef()
   const hoverLightRef = useRef() 
   const systemState = useRef({ wave: 0 }) 
+  
   const { gl } = useThree()
   const { width } = useThree().size
   const isMobile = width < 768
@@ -191,24 +243,6 @@ export default function SpaceScene({ startTransition, lightColor }) {
     
     systemState.current.wave = t * 0.5; 
 
-    // --- MOND HIGHLIGHT LOGIK ---
-    // Wenn der Nebel kommt, muss der Mond leuchten, um durchzustechen.
-    if (moonMeshRef.current) {
-        // Wir holen uns die Dichte des Nebels aus der Szene, um das Leuchten zu synchronisieren
-        // (Kleiner Hack: Wir greifen auf scene.fog.density zu)
-        const currentFog = earthRef.current.parent.fog ? earthRef.current.parent.fog.density : 0;
-        
-        // Wenn Nebel da ist (> 0.01), drehen wir das Leuchten auf
-        const targetEmissive = currentFog > 0.01 ? 1.5 : 0;
-        
-        moonMeshRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(
-            moonMeshRef.current.material.emissiveIntensity,
-            targetEmissive,
-            0.1
-        );
-    }
-
-    // Hover Licht
     if (hoverLightRef.current) {
         if (lightColor) {
             hoverLightRef.current.color.set(lightColor);
@@ -225,8 +259,8 @@ export default function SpaceScene({ startTransition, lightColor }) {
     <>
       <CameraController startTransition={startTransition} isMobile={isMobile} />
       
-      {/* DER NEBEL VORHANG */}
-      <FogCurtain moonRef={moonGroupRef} />
+      {/* HUD OVERLAY */}
+      <HudOverlay startTransition={startTransition} />
 
       {/* HTML Blur Overlay */}
       <Html fullscreen style={{ pointerEvents: 'none', zIndex: 0 }}>
@@ -263,17 +297,10 @@ export default function SpaceScene({ startTransition, lightColor }) {
             <atmosphereMaterial transparent blending={THREE.AdditiveBlending} side={THREE.BackSide} />
         </mesh>
         
-        {/* MOND MIT GLOW */}
         <group ref={moonGroupRef}>
             <mesh ref={moonMeshRef}>
                 <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial 
-                    map={moonMap} 
-                    metalness={0.1} 
-                    roughness={0.8} 
-                    emissive="#ffffff" // Wird per Code gesteuert
-                    emissiveIntensity={0} 
-                />
+                <meshStandardMaterial map={moonMap} metalness={0.1} roughness={0.8} />
             </mesh>
         </group>
       </group>
