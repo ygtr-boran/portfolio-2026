@@ -72,14 +72,28 @@ function HudOverlay({ startTransition }) {
                     </div>
                 </div>
 
-                {/* UNTEN RECHTS: Social Icons (CLICK FIX & NO GRAY) */}
-                {/* pointer-events-auto auf den Wrapper der Buttons */}
+                {/* --- RECHTLICHES (IMPRESSUM & DATENSCHUTZ) --- */}
+                <div className="absolute bottom-2 w-full flex justify-center items-center gap-6 pointer-events-auto z-50">
+                    <a 
+                        href="/impressum" 
+                        className="text-[10px] md:text-xs text-white/40 hover:text-white uppercase tracking-widest transition-colors duration-300 cursor-pointer"
+                    >
+                        Impressum
+                    </a>
+                    <a 
+                        href="/datenschutz" 
+                        className="text-[10px] md:text-xs text-white/40 hover:text-white uppercase tracking-widest transition-colors duration-300 cursor-pointer"
+                    >
+                        Datenschutz
+                    </a>
+                </div>
+
+                {/* UNTEN RECHTS: Social Icons */}
                 <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 flex items-center gap-4 pointer-events-auto z-50">
                     
                     {/* EMAIL BUTTON */}
                     <a 
                         href="mailto:yigiterboran@icloud.com" 
-                        // HIER GEÄNDERT: bg-transparent statt bg-white/5 für den cleanen Look
                         className="group relative p-3 bg-transparent border border-white rounded-full hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 cursor-pointer z-50 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                         title="Send Email"
                     >
@@ -91,7 +105,6 @@ function HudOverlay({ startTransition }) {
                     {/* PHONE BUTTON */}
                     <a 
                         href="tel:+436765589349" 
-                        // HIER GEÄNDERT: bg-transparent
                         className="group relative p-3 bg-transparent border border-white rounded-full hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 cursor-pointer z-50 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                         title="Call Now"
                     >
@@ -100,12 +113,11 @@ function HudOverlay({ startTransition }) {
                         </svg>
                     </a>
 
-                    {/* INSTAGRAM BUTTON (RICHTIGES ICON) */}
+                    {/* INSTAGRAM BUTTON */}
                     <a 
                         href="https://instagram.com/ygtr.boran" 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        // HIER GEÄNDERT: bg-transparent
                         className="group relative p-3 bg-transparent border border-white rounded-full hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 cursor-pointer z-50 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                         title="Instagram"
                     >
@@ -211,12 +223,13 @@ export default function SpaceScene({ startTransition, lightColor }) {
   const { width } = useThree().size
   const isMobile = width < 768
 
+  // --- HIER IST DIE ÄNDERUNG: LOKALE DATEIEN ---
   const textures = useTexture([
-    'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg',
-    'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg',
-    'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg',
-    'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png',
-    'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/moon_1024.jpg'
+    '/textures/earth_map.jpg',
+    '/textures/earth_normal.jpg',
+    '/textures/earth_specular.jpg',
+    '/textures/clouds.png',
+    '/textures/moon.jpg'
   ])
 
   useEffect(() => {
