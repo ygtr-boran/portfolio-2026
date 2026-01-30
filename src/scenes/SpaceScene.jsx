@@ -30,7 +30,27 @@ const quotes = [
   { text: "Form follows function.", author: "Louis Sullivan" },
   { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
   { text: "Architecture should speak of its time and place, but yearn for timelessness.", author: "Frank Gehry" },
-  { text: "Less is more.", author: "Mies van der Rohe" }
+  { text: "Less is more.", author: "Mies van der Rohe" },
+  { text: "Ornament is crime.", author: "Adolf Loos" },
+  { text: "A house is a machine for living in.", author: "Le Corbusier" },
+  { text: "There are 360 degrees, so why stick to one?", author: "Zaha Hadid" },
+  { text: "Yes is more.", author: "Bjarke Ingels" },
+  { text: "Form and function are one.", author: "Frank Lloyd Wright" },
+  { text: "Architecture is invention.", author: "Oscar Niemeyer" },
+  { text: "Light is the origin of all being.", author: "Tadao Ando" },
+  { text: "Architecture begins where engineering ends.", author: "Walter Gropius" },
+  { text: "Less, but better.", author: "Dieter Rams" },
+  { text: "Design is not making beauty, beauty emerges from selection.", author: "Louis Kahn" },
+  { text: "Everything connects.", author: "Norman Foster" },
+  { text: "Structure is the giver of light.", author: "Louis Kahn" },
+  { text: "To provide meaningful architecture is not to parody history, but to articulate it.", author: "Daniel Libeskind" },
+  { text: "Function influence but does not dictate form.", author: "Eero Saarinen" },
+  { text: "Architecture is the art of how to waste space.", author: "Philip Johnson" },
+  { text: "Creation is a patient search.", author: "Le Corbusier" },
+  { text: "I call architecture frozen music.", author: "Johann Wolfgang von Goethe" },
+  { text: "We shape our buildings; thereafter they shape us.", author: "Winston Churchill" },
+  { text: "A design isn't finished until someone is using it.", author: "Brenda Laurel" },
+  { text: "Recognizing the need is the primary condition for design.", author: "Charles Eames" }
 ];
 
 // --- 3. HUD OVERLAY (FIXED & STYLED) ---
