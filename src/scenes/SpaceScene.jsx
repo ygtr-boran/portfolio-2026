@@ -16,14 +16,27 @@ const AtmosphereMaterial = shaderMaterial(
 )
 extend({ AtmosphereMaterial })
 
-// --- 2. DATA ---
+// --- 2. DATA (STRATEGIC DISTRIBUTION) ---
 const cities = [
+  // --- EUROPA & MIDDLE EAST ---
   { name: "BERLIN", lat: 52.5200, lon: 13.4050 },
-  { name: "LONDON", lat: 51.5074, lon: -0.1278 },
+  { name: "LONDON", lat: 51.5074, lon: -0.1278 }, // Weit genug weg von Berlin
+  { name: "ISTANBUL", lat: 41.0082, lon: 28.9784 }, // Die Brücke zwischen Ost & West
+
+  // --- AMERIKA (Nord & Süd getrennt) ---
   { name: "NEW YORK", lat: 40.7128, lon: -74.0060 },
-  { name: "TOKYO", lat: 35.6762, lon: 139.6503 },
-  { name: "SYDNEY", lat: -33.8688, lon: 151.2093 }
-]
+  { name: "SAN FRANCISCO", lat: 37.7749, lon: -122.4194 }, // Damit die USA nicht leer aussieht
+  { name: "SAO PAULO", lat: -23.5505, lon: -46.6333 }, // Beherrscht den Süden
+
+  // --- AFRIKA ---
+  { name: "CAPE TOWN", lat: -33.9249, lon: 18.4241 }, // Perfekt isoliert im Süden
+
+  // --- ASIEN & PAZIFIK ---
+  { name: "DUBAI", lat: 25.2048, lon: 55.2708 }, // Wichtiger Hub, genug Abstand zu Istanbul
+  { name: "SINGAPORE", lat: 1.3521, lon: 103.8198 }, // Zentralasien-Hub
+  { name: "TOKYO", lat: 35.6762, lon: 139.6503 }, // Fernost
+  { name: "SYDNEY", lat: -33.8688, lon: 151.2093 } // Ozeanien
+];
 
 const quotes = [
   { text: "God is in the details.", author: "Mies van der Rohe" },
