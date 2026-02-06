@@ -114,7 +114,7 @@ export default function Home() {
           
           <div className="relative z-30 flex flex-col items-center">
             {/* BLAU */}
-            <p className="text-blue-400 font-mono text-[9px] tracking-[0.8em] uppercase mb-6 opacity-80">Architect // Maker</p>
+            <p className="text-blue-400 font-mono text-[9px] tracking-[0.8em] uppercase mb-6 opacity-80">Architecture</p>
             <h1 className="text-6xl md:text-[11rem] font-black tracking-tighter text-white uppercase text-center leading-[0.8]">
               Boran<br />
               {/* BLAU GRADIENT */}
