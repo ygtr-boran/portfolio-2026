@@ -36,7 +36,7 @@ export default function About() {
                     <span className="text-blue-500">STUDENT.</span>
                 </h1>
                 <p className="text-sm md:text-xl text-gray-400 mt-2 font-light tracking-wide">
-                    in the university of liechtenstein
+                    at the University of Liechtenstein
                 </p>
             </div>
 
