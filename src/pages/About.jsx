@@ -32,9 +32,12 @@ export default function About() {
             <div className="mb-16 border-l-2 border-white pl-8 md:pl-12">
                 <p className="text-gray-400 font-mono text-xs tracking-widest mb-2">01 // IDENTITY</p>
                 <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter leading-none shadow-black drop-shadow-2xl">
-                    ARCHITECT.<br/>
-                    <span className="text-blue-500">MAKER.</span>
+                    ARCHITECTURE.<br/>
+                    <span className="text-blue-500">STUDENT.</span>
                 </h1>
+                <p className="text-sm md:text-xl text-gray-400 mt-2 font-light tracking-wide">
+                    in the university of liechtenstein
+                </p>
             </div>
 
             {/* --- MAIN LAYOUT --- */}
