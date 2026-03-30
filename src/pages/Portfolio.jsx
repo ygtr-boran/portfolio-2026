@@ -1,26 +1,26 @@
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react' // NEU: useState importieren
 
 export default function Portfolio() {
   const navigate = useNavigate()
+  
+  // NEU: Zustand für das Zoom-Modal
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // BILD: NEBLIGES TAL (Dein Bild)
+  // BILD: NEBLIGES TAL (Hintergrund bleibt atmosphärisch)
   const bgImage = "https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=80&w=1740&auto=format&fit=crop";
 
   return (
     <div className="min-h-screen bg-[#0b0b0b] text-white font-sans relative overflow-hidden animate-fadeIn selection:bg-white selection:text-black">
       
-      {/* --- BACKGROUND LAYER --- */}
+      {/* --- BACKGROUND LAYER --- (Hintergrund bleibt) */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-          {/* 1. Dein Bild */}
           <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat grayscale-[60%] contrast-110"
               style={{ backgroundImage: `url('${bgImage}')` }}
           ></div>
-          
-          {/* 2. Abdunkelung für Lesbarkeit */}
           <div className="absolute inset-0 bg-black/50"></div>
-          
-          {/* 3. Noise Texture für den Film-Look */}
+          {/* Noise für den Look */}
           <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
       </div>
 
@@ -36,10 +36,10 @@ export default function Portfolio() {
       </div>
 
       {/* --- MAIN CONTENT: THE VAULT --- */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-6">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 py-24 md:px-6">
           
-          {/* Glass Container */}
-          <div className="relative p-12 md:p-20 border border-white/10 bg-[#0a0a0a]/30 backdrop-blur-md overflow-hidden group hover:border-white/20 transition-all duration-700 max-w-2xl w-full">
+          {/* Glass Container - Breiter für bessere Übersicht */}
+          <div className="relative p-6 md:p-16 border border-white/10 bg-[#0a0a0a]/30 backdrop-blur-md overflow-hidden group hover:border-white/20 transition-all duration-700 max-w-4xl w-full">
               
               {/* Dekorative Ecken */}
               <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/30"></div>
@@ -58,17 +58,27 @@ export default function Portfolio() {
               </div>
 
               {/* CENTERPIECE TEXT */}
-              <div className="text-center space-y-6">
+              <div className="text-center mb-16">
                   <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-none opacity-90 drop-shadow-2xl">
                       PROJEKTE
                   </h1>
+              </div>
+
+              {/* --- BILD: ZWISCHENKRITIK - GLASKLAR UND KLICKBAR --- */}
+              <div 
+                  className="relative overflow-hidden border border-white/10 cursor-pointer transition-all duration-500 hover:border-white/20"
+                  onClick={() => setIsModalOpen(true)} // NEU: Klick öffnet das Modal
+              >
+                  {/* ALTES DUNKLES OVERLAY UND GRAYSCALE ENTFERNT -> BILD IST JETZT KLAR */}
+                  <img 
+                      src="/projects/zwischenkritik.jpeg" 
+                      alt="Zwischenkritik - Pläne und Modell" 
+                      className="w-full h-auto object-cover transform hover:scale-[1.03] transition-transform duration-1000 ease-out"
+                  />
                   
-                  {/* Der "Demnächst" Status */}
-                  <div className="relative inline-block mt-4">
-                      <div className="absolute inset-0 bg-white/5 blur-lg rounded-full"></div>
-                      <span className="relative z-10 text-xs md:text-sm font-mono tracking-[0.4em] uppercase text-white border border-white/30 px-8 py-3 rounded-sm hover:bg-white/5 transition-colors cursor-default">
-                          DEMNÄCHST
-                      </span>
+                  {/* Label unten rechts */}
+                  <div className="absolute bottom-4 right-4 z-20 bg-black/80 border border-white/20 px-3 py-1 backdrop-blur-sm opacity-60 group-hover:opacity-100 transition-opacity duration-500">
+                      <span className="text-[9px] font-mono text-gray-300 tracking-widest uppercase">FILE: Zwischenkritik_01</span>
                   </div>
               </div>
 
@@ -81,8 +91,31 @@ export default function Portfolio() {
               {/* Scanline Effekt */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(transparent_50%,rgba(255,255,255,0.1)_50%)] bg-[length:100%_4px]"></div>
           </div>
-
       </div>
+
+      {/* --- NEU: ZOOM MODAL LAYER --- */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-fadeInSlow p-4 md:p-12"
+          onClick={() => setIsModalOpen(false)} // Klick auf den Hintergrund schließt das Modal
+        >
+          {/* X-Button zum Schließen */}
+          <button 
+            className="absolute top-8 right-8 text-white/50 hover:text-white text-3xl font-light z-[110]"
+            onClick={() => setIsModalOpen(false)}
+          >
+            ×
+          </button>
+          
+          {/* Das gezoomte Bild */}
+          <img 
+            src="/projects/zwischenkritik.jpeg" 
+            alt="Zwischenkritik - Pläne und Modell (Fullsize)" 
+            className="max-w-full max-h-full object-contain shadow-2xl border border-white/10 transition-transform"
+            onClick={(e) => e.stopPropagation()} // Verhindert, dass ein Klick aufs Bild das Modal schließt
+          />
+        </div>
+      )}
     </div>
   )
 }

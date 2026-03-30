@@ -163,7 +163,7 @@ export default function About() {
                                         {/* Name */}
                                         <div className="text-center mb-6">
                                             <h2 className="text-2xl font-bold text-white leading-none mb-2">BORAN YIGITER</h2>
-                                            <p className="text-xs text-blue-400 font-mono tracking-[0.2em] mb-2 uppercase">Architect</p>
+                                            <p className="text-xs text-blue-400 font-mono tracking-[0.2em] mb-2 uppercase">Architecture Student</p>
                                             <p className="text-[10px] text-gray-500">University of Liechtenstein</p>
                                         </div>
 
