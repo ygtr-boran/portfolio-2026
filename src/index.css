@@ -1,8 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  background-color: #000;
-  color: #fff;
+  background-color: #111; /* Dunkler Modus für den Start */
+  color: white;
+  font-family: sans-serif;
 }

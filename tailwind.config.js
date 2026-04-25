@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Hier definieren wir später deine Architekten-Farben
+      fontFamily: {
+         // Hier kommen später futuristische Fonts rein
+      }
+    },
   },
   plugins: [],
 }
