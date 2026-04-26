@@ -4,8 +4,242 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #111; /* Dunkler Modus für den Start */
-  color: white;
-  font-family: sans-serif;
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  overflow: hidden;
+  background-color: #111;
+}
+
+/* =========================================
+   1. HAUPTRAUM (HOME)
+   ========================================= */
+.portfolio-container {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden; 
+  isolation: isolate; 
+}
+
+.portfolio-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+  background-image: url('/assets/modell.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+  transform: scale(1.05); 
+}
+
+.main-content {
+  z-index: 10;
+}
+
+.name {
+  font-size: clamp(2.5rem, 7vw, 5.5rem); 
+  font-weight: 900;
+  line-height: 0.9;
+  color: #fff;
+  letter-spacing: 6px; 
+  text-shadow: 2px 2px 20px rgba(0,0,0,0.8);
+  opacity: 0; 
+  animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.contact-info {
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.title {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #aaa;
+}
+
+.email {
+  display: block;
+  margin-top: 10px;
+  font-family: 'Courier New', Courier, monospace; 
+  font-size: 1rem; 
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: opacity 0.3s ease;
+}
+
+.email:hover {
+  opacity: 0.6;
+}
+
+.arch-footer {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards 1s;
+}
+
+.footer-link {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #fff;
+}
+
+.separator {
+  color: #333;
+  font-size: 0.8rem;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* =========================================
+   2. RECHTLICHE RÄUME (IMPRESSUM & DATENSCHUTZ)
+   ========================================= */
+.legal-container {
+  width: 100%;
+  height: 100dvh;
+  /* Leichter Schatten für die Lesbarkeit, lässt das Bild durchscheinen */
+  background-color: rgba(0, 0, 0, 0.4); 
+  color: #fff;
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Das Hintergrundbild wird hier FESTBETONIERT (position: fixed) */
+.legal-container::before {
+  content: "";
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+  background-image: url('/assets/modell.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+  transform: scale(1.05); 
+}
+
+.legal-content {
+  max-width: 900px; 
+  width: 100%;
+  text-transform: none;
+  animation: fadeInLegal 0.8s ease-out;
+}
+
+.legal-title {
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: 8px; 
+  color: #ffffff; 
+  margin-bottom: 60px;
+  border-left: 4px solid #fff; 
+  padding-left: 20px;
+  line-height: 1;
+}
+
+.legal-text {
+  color: #ccc; 
+  line-height: 1.9;
+  font-size: 1rem;
+  margin-bottom: 35px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.legal-text strong {
+  color: #ffffff; 
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.legal-back {
+  display: inline-block;
+  margin-top: 60px;
+  margin-bottom: 100px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border: 2px solid #fff; 
+  padding: 15px 35px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legal-back:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Elegante Scrollbar */
+.legal-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.legal-container::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+
+.legal-container::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+@keyframes fadeInLegal {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
