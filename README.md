@@ -1,16 +1,21 @@
-# React + Vite
+# Architektur-Portfolio (3D)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Statische Website: HTML, CSS und JS mit Three.js, GSAP und Lenis über CDN. Kein Build-Schritt nötig.
 
-Currently, two official plugins are available:
+## Starten (VS Code)
+1. Ordner in VS Code öffnen: `Datei → Ordner öffnen…`
+2. Extension **Live Server** installieren → Rechtsklick auf `index.html` → **Open with Live Server**
+   *(alternativ im Terminal: `python3 -m http.server 5500` → http://localhost:5500)*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> Doppelklick auf `index.html` funktioniert **nicht**, weil ES-Module einen lokalen Server brauchen.
 
-## React Compiler
+## Anpassen
+| Was | Wo |
+|---|---|
+| Projekte (Titel, Text, Fakten, Bild) | `main.js` → `PROJECTS` ganz oben |
+| Name, Uni, Lebenslauf, Links, E-Mail | `index.html` |
+| Farben / Schriften | `style.css` → `:root` |
+| Bilder | `assets/img/` (`projekt-01.jpg` …, `portrait.jpg`) |
+| 3D-Turm (Geschosse, Verdrehung) | `main.js` → `FLOORS`, `TWIST` |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Ein eigenes 3D-Modell (z. B. aus Rhino oder Blender als `.glb`) lässt sich mit dem `GLTFLoader` aus `three/addons/loaders/GLTFLoader.js` laden.
